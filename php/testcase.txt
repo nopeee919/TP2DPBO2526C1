@@ -1,28 +1,3 @@
-TESTCASE PHP - SISTEM DATA MOBIL RENTAL
-
-Cara menjalankan menggunakan PHP Built-in Web Server:
-
-1. Pastikan PHP sudah terinstall.
-2. Buka terminal di folder PHP.
-3. Jalankan:
-   php -S localhost:8000
-4. Buka browser:
-   http://localhost:8000
-
-==================================================
-TEST CASE 1 - Lima data awal
-==================================================
-
-Expected:
-- Halaman menampilkan 5 data awal.
-- MR001 sampai MR005 tampil pada tabel.
-- Setiap data mempunyai foto_produk.
-- Total data = 5 mobil.
-
-==================================================
-TEST CASE 2 - Menambahkan 1 data
-==================================================
-
 Isi form:
 
 ID Kendaraan        : MR006
@@ -37,17 +12,6 @@ Kapasitas Penumpang : 7
 Harga Sewa per Hari : 600000
 Foto Produk         : foto_produk/toyota.jpg
 
-Expected:
-- Muncul pesan "Data berhasil ditambahkan."
-- Data MR006 tampil pada tabel.
-- Total data menjadi 6 mobil.
-
-==================================================
-TEST CASE 3 - Menambahkan data kedua
-==================================================
-
-Isi form:
-
 ID Kendaraan        : MR007
 Merk                : Hyundai
 Tahun Produksi      : 2023
@@ -59,23 +23,3 @@ Nomor Plat          : B2222LM
 Kapasitas Penumpang : 7
 Harga Sewa per Hari : 525000
 Foto Produk         : foto_produk/hyundai.jpg
-
-Expected:
-- Data MR007 berhasil ditambahkan.
-- Total data menjadi 6 mobil pada request tersebut jika halaman
-  baru direfresh dari awal, karena data PHP disimpan dalam array
-  selama request berlangsung.
-- Untuk demonstrasi tugas, tambahkan data dan ambil screenshot
-  pada halaman hasil POST.
-
-==================================================
-CATATAN PENTING
-==================================================
-
-PHP menggunakan form HTML untuk input user.
-Atribut fotoProduk/foto_produk hanya digunakan pada versi PHP
-sesuai requirement tugas.
-
-Data PHP tidak menggunakan database/session, sehingga data tambahan
-tidak permanen setelah halaman direfresh. Hal tersebut tidak masalah
-karena requirement tugas hanya meminta fitur Add.
