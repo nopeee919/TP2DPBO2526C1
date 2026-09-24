@@ -1,0 +1,90 @@
+TESTCASE JAVA - SISTEM DATA MOBIL RENTAL
+
+Cara menjalankan:
+1. Compile:
+   javac *.java
+
+2. Jalankan:
+   java Main
+
+==================================================
+TEST CASE 1 - Menambahkan 1 data
+==================================================
+
+Input:
+
+MR006
+Toyota
+2024
+350000000
+4
+Bensin
+Automatic
+B1111JK
+7
+600000
+n
+
+Expected:
+- Data MR006 berhasil ditambahkan.
+- Total data menjadi 6 mobil.
+- Program selesai setelah input n.
+
+==================================================
+TEST CASE 2 - Menambahkan 2 data
+==================================================
+
+Input:
+
+MR006
+Toyota
+2024
+350000000
+4
+Bensin
+Automatic
+B1111JK
+7
+600000
+y
+MR007
+Hyundai
+2023
+300000000
+4
+Bensin
+Automatic
+B2222LM
+7
+525000
+n
+
+Expected:
+- MR006 dan MR007 berhasil ditambahkan.
+- Total data menjadi 7 mobil.
+- Tabel menampilkan 5 data awal + 2 data baru.
+
+==================================================
+TEST CASE 3 - Validasi input angka
+==================================================
+
+Contoh input:
+
+MR008
+Kia
+abc
+2022
+210000000
+4
+Bensin
+Automatic
+B3333NO
+5
+425000
+n
+
+Expected:
+- Saat tahun diisi "abc", program menampilkan:
+  "Masukkan angka bulat yang valid."
+- User dapat memasukkan 2022 dan melanjutkan proses.
+- MR008 berhasil ditambahkan.
