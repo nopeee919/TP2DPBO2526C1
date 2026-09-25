@@ -156,7 +156,7 @@ def tambah_data():
     merk = baca_string("Merk                  : ")
     tahun_produksi = baca_int("Tahun Produksi        : ")
     harga = baca_float("Harga Kendaraan       : Rp ")
-    jumlah_roda = baca_int("Jumlah Roda            : ")
+    jumlah_roda = baca_int("Jumlah Roda           : ")
     jenis_bahan_bakar = baca_string("Jenis Bahan Bakar     : ")
     transmisi = baca_string("Transmisi             : ")
     nomor_plat = baca_string("Nomor Plat            : ")
