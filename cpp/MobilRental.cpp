@@ -1,50 +1,67 @@
-#include "MobilRental.h"
+#include "KendaraanDarat.cpp"
 #include <iostream>
+#include <string>
 
-MobilRental::MobilRental(
-    std::string idKendaraan,
-    std::string merk,
-    int tahunProduksi,
-    double harga,
-    int jumlahRoda,
-    std::string jenisBahanBakar,
-    std::string transmisi,
-    std::string nomorPlat,
-    int kapasitasPenumpang,
-    double hargaSewaPerHari
-)
-    : KendaraanDarat(
-        idKendaraan,
-        merk,
-        tahunProduksi,
-        harga,
-        jumlahRoda,
-        jenisBahanBakar,
-        transmisi
-      ),
-      nomorPlat(nomorPlat),
-      kapasitasPenumpang(kapasitasPenumpang),
-      hargaSewaPerHari(hargaSewaPerHari) {}
+using namespace std;
 
-double MobilRental::hitungBiayaSewa(int jumlahHari) const {
-    return hargaSewaPerHari * jumlahHari;
-}
+class MobilRental : public KendaraanDarat
+{
+private:
+    string nomorPlat;
+    int kapasitasPenumpang;
+    double hargaSewaPerHari;
 
-void MobilRental::tampilkanDetailRental() const {
-    tampilkanInfo();
-    std::cout << "Nomor Plat   : " << nomorPlat << "\n";
-    std::cout << "Kapasitas    : " << kapasitasPenumpang << " orang\n";
-    std::cout << "Sewa/Hari    : Rp " << hargaSewaPerHari << "\n";
-}
+public:
+    MobilRental(
+        string idKendaraan,
+        string merk,
+        int tahunProduksi,
+        double harga,
+        int jumlahRoda,
+        string jenisBahanBakar,
+        string transmisi,
+        string nomorPlat,
+        int kapasitasPenumpang,
+        double hargaSewaPerHari) : KendaraanDarat(idKendaraan,
+                                                  merk,
+                                                  tahunProduksi,
+                                                  harga,
+                                                  jumlahRoda,
+                                                  jenisBahanBakar,
+                                                  transmisi)
+    {
 
-std::string MobilRental::getNomorPlat() const {
-    return nomorPlat;
-}
+        this->nomorPlat = nomorPlat;
+        this->kapasitasPenumpang = kapasitasPenumpang;
+        this->hargaSewaPerHari = hargaSewaPerHari;
+    }
 
-int MobilRental::getKapasitasPenumpang() const {
-    return kapasitasPenumpang;
-}
+    double hitungBiayaSewa(int jumlahHari)
+    {
+        return hargaSewaPerHari * jumlahHari;
+    }
 
-double MobilRental::getHargaSewaPerHari() const {
-    return hargaSewaPerHari;
-}
+    void tampilkanDetailRental()
+    {
+        tampilkanInfoDarat();
+
+        cout << "Nomor Plat   : " << nomorPlat << "\n";
+        cout << "Kapasitas    : " << kapasitasPenumpang << " orang\n";
+        cout << "Sewa/Hari    : Rp " << hargaSewaPerHari << "\n";
+    }
+
+    string getNomorPlat()
+    {
+        return nomorPlat;
+    }
+
+    int getKapasitasPenumpang()
+    {
+        return kapasitasPenumpang;
+    }
+
+    double getHargaSewaPerHari()
+    {
+        return hargaSewaPerHari;
+    }
+};

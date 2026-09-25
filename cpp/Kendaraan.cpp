@@ -1,47 +1,50 @@
-#include "Kendaraan.h"
 #include <iostream>
-#include <ctime>
+#include <string>
 
-Kendaraan::Kendaraan(std::string idKendaraan, std::string merk, int tahunProduksi, double harga)
-    : idKendaraan(idKendaraan),
-      merk(merk),
-      tahunProduksi(tahunProduksi),
-      harga(harga) {}
+using namespace std;
 
-void Kendaraan::tampilkanInfo() const {
-    std::cout << "ID Kendaraan : " << idKendaraan << "\n";
-    std::cout << "Merk         : " << merk << "\n";
-    std::cout << "Tahun        : " << tahunProduksi << "\n";
-    std::cout << "Harga        : Rp " << harga << "\n";
-}
+class Kendaraan
+{
+private:
+    string idKendaraan;
+    string merk;
+    int tahunProduksi;
+    double harga;
 
-double Kendaraan::hitungNilaiDepresiasi() const {
-    std::time_t t = std::time(nullptr);
-    std::tm* now = std::localtime(&t);
-    int tahunSekarang = now->tm_year + 1900;
-
-    int umur = tahunSekarang - tahunProduksi;
-
-    if (umur <= 0) {
-        return 0;
+public:
+    Kendaraan(string idKendaraan, string merk, int tahunProduksi, double harga)
+    {
+        this->idKendaraan = idKendaraan;
+        this->merk = merk;
+        this->tahunProduksi = tahunProduksi;
+        this->harga = harga;
     }
 
-    // Estimasi depresiasi 5% per tahun.
-    return harga * 0.05 * umur;
-}
+    void tampilkanInfo()
+    {
+        cout << "ID Kendaraan : " << idKendaraan << "\n";
+        cout << "Merk         : " << merk << "\n";
+        cout << "Tahun        : " << tahunProduksi << "\n";
+        cout << "Harga        : Rp " << harga << "\n";
+    }
 
-std::string Kendaraan::getIdKendaraan() const {
-    return idKendaraan;
-}
+    string getIdKendaraan()
+    {
+        return idKendaraan;
+    }
 
-std::string Kendaraan::getMerk() const {
-    return merk;
-}
+    string getMerk()
+    {
+        return merk;
+    }
 
-int Kendaraan::getTahunProduksi() const {
-    return tahunProduksi;
-}
+    int getTahunProduksi()
+    {
+        return tahunProduksi;
+    }
 
-double Kendaraan::getHarga() const {
-    return harga;
-}
+    double getHarga()
+    {
+        return harga;
+    }
+};

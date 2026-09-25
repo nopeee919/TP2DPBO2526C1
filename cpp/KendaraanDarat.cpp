@@ -1,39 +1,58 @@
-#include "KendaraanDarat.h"
+#include "Kendaraan.cpp"
 #include <iostream>
+#include <string>
 
-KendaraanDarat::KendaraanDarat(
-    std::string idKendaraan,
-    std::string merk,
-    int tahunProduksi,
-    double harga,
-    int jumlahRoda,
-    std::string jenisBahanBakar,
-    std::string transmisi
-)
-    : Kendaraan(idKendaraan, merk, tahunProduksi, harga),
-      jumlahRoda(jumlahRoda),
-      jenisBahanBakar(jenisBahanBakar),
-      transmisi(transmisi) {}
+using namespace std;
 
-bool KendaraanDarat::cekKelayakanBerkendara() const {
-    return jumlahRoda >= 4 && tahunProduksi >= 2000;
-}
+class KendaraanDarat : public Kendaraan
+{
+private:
+    int jumlahRoda;
+    string jenisBahanBakar;
+    string transmisi;
 
-void KendaraanDarat::tampilkanInfo() const {
-    Kendaraan::tampilkanInfo();
-    std::cout << "Jumlah Roda  : " << jumlahRoda << "\n";
-    std::cout << "Bahan Bakar  : " << jenisBahanBakar << "\n";
-    std::cout << "Transmisi    : " << transmisi << "\n";
-}
+public:
+    KendaraanDarat(
+        string idKendaraan,
+        string merk,
+        int tahunProduksi,
+        double harga,
+        int jumlahRoda,
+        string jenisBahanBakar,
+        string transmisi) : Kendaraan(idKendaraan, merk, tahunProduksi, harga)
+    {
 
-int KendaraanDarat::getJumlahRoda() const {
-    return jumlahRoda;
-}
+        this->jumlahRoda = jumlahRoda;
+        this->jenisBahanBakar = jenisBahanBakar;
+        this->transmisi = transmisi;
+    }
 
-std::string KendaraanDarat::getJenisBahanBakar() const {
-    return jenisBahanBakar;
-}
+    bool cekKelayakanBerkendara()
+    {
+        return jumlahRoda >= 4 && getTahunProduksi() >= 2000;
+    }
 
-std::string KendaraanDarat::getTransmisi() const {
-    return transmisi;
-}
+    void tampilkanInfoDarat()
+    {
+        tampilkanInfo();
+
+        cout << "Jumlah Roda  : " << jumlahRoda << "\n";
+        cout << "Bahan Bakar  : " << jenisBahanBakar << "\n";
+        cout << "Transmisi    : " << transmisi << "\n";
+    }
+
+    int getJumlahRoda()
+    {
+        return jumlahRoda;
+    }
+
+    string getJenisBahanBakar()
+    {
+        return jenisBahanBakar;
+    }
+
+    string getTransmisi()
+    {
+        return transmisi;
+    }
+};

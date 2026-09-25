@@ -1,235 +1,374 @@
 #include <iostream>
-#include <iomanip>
 #include <vector>
 #include <string>
-#include <sstream>
-#include <algorithm>
-#include "MobilRental.h"
 
-std::vector<MobilRental> daftarMobil;
+using namespace std;
 
-std::string formatRupiah(double nilai) {
-    std::ostringstream hasil;
-    hasil << std::fixed << std::setprecision(0) << nilai;
+#include "MobilRental.cpp"
 
-    std::string angka = hasil.str();
-    int posisi = static_cast<int>(angka.length()) - 3;
+vector<MobilRental> daftarMobil;
 
-    while (posisi > 0) {
-        angka.insert(posisi, ".");
-        posisi -= 3;
+string formatRupiah(double nilai)
+{
+    long long angka = (long long)nilai;
+    string hasil = to_string(angka);
+
+    int posisi = hasil.length() - 3;
+
+    while (posisi > 0)
+    {
+        hasil.insert(posisi, ".");
+        posisi = posisi - 3;
     }
 
-    return "Rp " + angka;
+    return "Rp " + hasil;
 }
 
-std::string potong(const std::string& teks, int panjang) {
-    if (static_cast<int>(teks.length()) <= panjang) {
+string potong(string teks, int panjang)
+{
+    if (teks.length() <= panjang)
+    {
         return teks;
     }
 
-    if (panjang <= 3) {
+    if (panjang <= 3)
+    {
         return teks.substr(0, panjang);
     }
 
     return teks.substr(0, panjang - 3) + "...";
 }
 
-void tampilkanTabel() {
-    const std::string garis =
+void tampilkanTabel()
+{
+    string garis =
         "+--------+---------------+--------+-----------------+-------+------------+------------+------------+------------+-----------------+";
 
-    std::cout << "\n" << garis << "\n";
+    cout << "\n"
+         << garis << "\n";
 
-    std::cout << "| "
-              << std::left << std::setw(6) << "ID" << " | "
-              << std::setw(13) << "Merk" << " | "
-              << std::setw(6) << "Tahun" << " | "
-              << std::setw(15) << "Harga" << " | "
-              << std::setw(5) << "Roda" << " | "
-              << std::setw(10) << "BBM" << " | "
-              << std::setw(10) << "Transmisi" << " | "
-              << std::setw(10) << "Plat" << " | "
-              << std::setw(10) << "Kapasitas" << " | "
-              << std::setw(15) << "Sewa/Hari" << " |\n";
+    cout << "| "
+         << "ID     | "
+         << "Merk          | "
+         << "Tahun  | "
+         << "Harga           | "
+         << "Roda  | "
+         << "BBM        | "
+         << "Transmisi  | "
+         << "Plat       | "
+         << "Kapasitas  | "
+         << "Sewa/Hari       |\n";
 
-    std::cout << garis << "\n";
+    cout << garis << "\n";
 
-    for (const MobilRental& mobil : daftarMobil) {
-        std::cout << "| "
-                  << std::left << std::setw(6) << potong(mobil.getIdKendaraan(), 6) << " | "
-                  << std::setw(13) << potong(mobil.getMerk(), 13) << " | "
-                  << std::setw(6) << mobil.getTahunProduksi() << " | "
-                  << std::setw(15) << potong(formatRupiah(mobil.getHarga()), 15) << " | "
-                  << std::setw(5) << mobil.getJumlahRoda() << " | "
-                  << std::setw(10) << potong(mobil.getJenisBahanBakar(), 10) << " | "
-                  << std::setw(10) << potong(mobil.getTransmisi(), 10) << " | "
-                  << std::setw(10) << potong(mobil.getNomorPlat(), 10) << " | "
-                  << std::setw(10) << (std::to_string(mobil.getKapasitasPenumpang()) + " org") << " | "
-                  << std::setw(15) << potong(formatRupiah(mobil.getHargaSewaPerHari()), 15) << " |\n";
-    }
+    for (int i = 0; i < daftarMobil.size(); i++)
+    {
 
-    std::cout << garis << "\n";
-    std::cout << "Total data: " << daftarMobil.size() << " mobil\n";
-}
+        string id = potong(daftarMobil[i].getIdKendaraan(), 6);
+        string merk = potong(daftarMobil[i].getMerk(), 13);
+        string harga = potong(formatRupiah(daftarMobil[i].getHarga()), 15);
+        string bbm = potong(daftarMobil[i].getJenisBahanBakar(), 10);
+        string transmisi = potong(daftarMobil[i].getTransmisi(), 10);
+        string plat = potong(daftarMobil[i].getNomorPlat(), 10);
+        string kapasitas = to_string(daftarMobil[i].getKapasitasPenumpang()) + " org";
+        string sewa = potong(formatRupiah(daftarMobil[i].getHargaSewaPerHari()), 15);
 
-int bacaInt(const std::string& pesan) {
-    while (true) {
-        std::cout << pesan;
+        cout << "| ";
 
-        std::string input;
-        std::getline(std::cin, input);
-
-        std::stringstream ss(input);
-        int nilai;
-        char sisa;
-
-        if (ss >> nilai && !(ss >> sisa)) {
-            return nilai;
+        cout << id;
+        for (int j = id.length(); j < 6; j++)
+        {
+            cout << " ";
         }
 
-        std::cout << "Masukkan angka bulat yang valid.\n";
-    }
-}
+        cout << " | ";
 
-double bacaDouble(const std::string& pesan) {
-    while (true) {
-        std::cout << pesan;
-
-        std::string input;
-        std::getline(std::cin, input);
-
-        std::stringstream ss(input);
-        double nilai;
-        char sisa;
-
-        if (ss >> nilai && !(ss >> sisa)) {
-            return nilai;
+        cout << merk;
+        for (int j = merk.length(); j < 13; j++)
+        {
+            cout << " ";
         }
 
-        std::cout << "Masukkan angka yang valid.\n";
+        cout << " | ";
+
+        cout << daftarMobil[i].getTahunProduksi();
+        for (int j = to_string(daftarMobil[i].getTahunProduksi()).length(); j < 6; j++)
+        {
+            cout << " ";
+        }
+
+        cout << " | ";
+
+        cout << harga;
+        for (int j = harga.length(); j < 15; j++)
+        {
+            cout << " ";
+        }
+
+        cout << " | ";
+
+        cout << daftarMobil[i].getJumlahRoda();
+        for (int j = 1; j < 5; j++)
+        {
+            cout << " ";
+        }
+
+        cout << " | ";
+
+        cout << bbm;
+        for (int j = bbm.length(); j < 10; j++)
+        {
+            cout << " ";
+        }
+
+        cout << " | ";
+
+        cout << transmisi;
+        for (int j = transmisi.length(); j < 10; j++)
+        {
+            cout << " ";
+        }
+
+        cout << " | ";
+
+        cout << plat;
+        for (int j = plat.length(); j < 10; j++)
+        {
+            cout << " ";
+        }
+
+        cout << " | ";
+
+        cout << kapasitas;
+        for (int j = kapasitas.length(); j < 10; j++)
+        {
+            cout << " ";
+        }
+
+        cout << " | ";
+
+        cout << sewa;
+        for (int j = sewa.length(); j < 15; j++)
+        {
+            cout << " ";
+        }
+
+        cout << " |\n";
+    }
+
+    cout << garis << "\n";
+    cout << "Total data: " << daftarMobil.size() << " mobil\n";
+}
+
+int bacaInt(string pesan)
+{
+    while (true)
+    {
+        cout << pesan;
+
+        string input;
+        getline(cin, input);
+
+        bool valid = true;
+
+        if (input.empty())
+        {
+            valid = false;
+        }
+
+        for (int i = 0; i < input.length(); i++)
+        {
+            if (input[i] < '0' || input[i] > '9')
+            {
+                valid = false;
+            }
+        }
+
+        if (valid)
+        {
+            return stoi(input);
+        }
+
+        cout << "Masukkan angka bulat yang valid.\n";
     }
 }
 
-std::string bacaString(const std::string& pesan) {
-    while (true) {
-        std::cout << pesan;
+double bacaDouble(string pesan)
+{
+    while (true)
+    {
+        cout << pesan;
 
-        std::string input;
-        std::getline(std::cin, input);
+        string input;
+        getline(cin, input);
 
-        if (!input.empty()) {
+        bool valid = true;
+        int jumlahTitik = 0;
+
+        if (input.empty())
+        {
+            valid = false;
+        }
+
+        for (int i = 0; i < input.length(); i++)
+        {
+            if (input[i] == '.')
+            {
+                jumlahTitik++;
+            }
+            else if (input[i] < '0' || input[i] > '9')
+            {
+                valid = false;
+            }
+        }
+
+        if (jumlahTitik > 1)
+        {
+            valid = false;
+        }
+
+        if (valid)
+        {
+            return stod(input);
+        }
+
+        cout << "Masukkan angka yang valid.\n";
+    }
+}
+
+string bacaString(string pesan)
+{
+    while (true)
+    {
+        cout << pesan;
+
+        string input;
+        getline(cin, input);
+
+        if (!input.empty())
+        {
             return input;
         }
 
-        std::cout << "Input tidak boleh kosong.\n";
+        cout << "Input tidak boleh kosong.\n";
     }
 }
 
-bool bacaYaTidak(const std::string& pesan) {
-    while (true) {
-        std::cout << pesan;
+bool bacaYaTidak(string pesan)
+{
+    while (true)
+    {
+        cout << pesan;
 
-        std::string jawaban;
-        std::getline(std::cin, jawaban);
+        string jawaban;
+        getline(cin, jawaban);
 
-        std::transform(jawaban.begin(), jawaban.end(), jawaban.begin(),
-                       [](unsigned char c) { return static_cast<char>(std::tolower(c)); });
-
-        if (jawaban == "y" || jawaban == "ya") {
+        if (jawaban == "y" || jawaban == "ya" ||
+            jawaban == "Y" || jawaban == "YA")
+        {
             return true;
         }
 
-        if (jawaban == "n" || jawaban == "tidak") {
+        if (jawaban == "n" || jawaban == "tidak" ||
+            jawaban == "N" || jawaban == "TIDAK")
+        {
             return false;
         }
 
-        std::cout << "Masukkan y/ya atau n/tidak.\n";
+        cout << "Masukkan y/ya atau n/tidak.\n";
     }
 }
 
-void isiDataAwal() {
-    // Lima objek awal sebelum input user.
-    daftarMobil.emplace_back(
-        "MR001", "Toyota", 2022, 250000000,
-        4, "Bensin", "Automatic", "B1234AB", 7, 450000
-    );
+void isiDataAwal()
+{
 
-    daftarMobil.emplace_back(
-        "MR002", "Honda", 2021, 230000000,
-        4, "Bensin", "Manual", "B5678CD", 5, 400000
-    );
+    daftarMobil.push_back(
+        MobilRental(
+            "MR001", "Toyota", 2022, 250000000,
+            4, "Bensin", "Automatic", "B1234AB", 7, 450000));
 
-    daftarMobil.emplace_back(
-        "MR003", "Mitsubishi", 2023, 320000000,
-        4, "Diesel", "Automatic", "D1234EF", 7, 550000
-    );
+    daftarMobil.push_back(
+        MobilRental(
+            "MR002", "Honda", 2021, 230000000,
+            4, "Bensin", "Manual", "B5678CD", 5, 400000));
 
-    daftarMobil.emplace_back(
-        "MR004", "Suzuki", 2020, 180000000,
-        4, "Bensin", "Manual", "F9876GH", 7, 350000
-    );
+    daftarMobil.push_back(
+        MobilRental(
+            "MR003", "Mitsubishi", 2023, 320000000,
+            4, "Diesel", "Automatic", "D1234EF", 7, 550000));
 
-    daftarMobil.emplace_back(
-        "MR005", "Daihatsu", 2022, 190000000,
-        4, "Bensin", "Automatic", "B2468IJ", 7, 375000
-    );
+    daftarMobil.push_back(
+        MobilRental(
+            "MR004", "Suzuki", 2020, 180000000,
+            4, "Bensin", "Manual", "F9876GH", 7, 350000));
+
+    daftarMobil.push_back(
+        MobilRental(
+            "MR005", "Daihatsu", 2022, 190000000,
+            4, "Bensin", "Automatic", "B2468IJ", 7, 375000));
 }
 
-void tambahData() {
-    std::cout << "\n--------------------------------------------------------------\n";
-    std::cout << "Tambah Data Mobil Rental\n";
-    std::cout << "--------------------------------------------------------------\n";
+void tambahData()
+{
 
-    std::string id = bacaString("ID Kendaraan          : ");
-    std::string merk = bacaString("Merk                  : ");
+    cout << "\n--------------------------------------------------------------\n";
+    cout << "Tambah Data Mobil Rental\n";
+    cout << "--------------------------------------------------------------\n";
+
+    string id = bacaString("ID Kendaraan          : ");
+    string merk = bacaString("Merk                  : ");
     int tahun = bacaInt("Tahun Produksi        : ");
     double harga = bacaDouble("Harga Kendaraan       : Rp ");
-    int roda = bacaInt("Jumlah Roda            : ");
-    std::string bahanBakar = bacaString("Jenis Bahan Bakar     : ");
-    std::string transmisi = bacaString("Transmisi             : ");
-    std::string plat = bacaString("Nomor Plat            : ");
+    int roda = bacaInt("Jumlah Roda           : ");
+    string bahanBakar = bacaString("Jenis Bahan Bakar     : ");
+    string transmisi = bacaString("Transmisi             : ");
+    string plat = bacaString("Nomor Plat            : ");
     int kapasitas = bacaInt("Kapasitas Penumpang   : ");
     double hargaSewa = bacaDouble("Harga Sewa per Hari   : Rp ");
 
-    daftarMobil.emplace_back(
-        id,
-        merk,
-        tahun,
-        harga,
-        roda,
-        bahanBakar,
-        transmisi,
-        plat,
-        kapasitas,
-        hargaSewa
-    );
+    daftarMobil.push_back(
+        MobilRental(
+            id,
+            merk,
+            tahun,
+            harga,
+            roda,
+            bahanBakar,
+            transmisi,
+            plat,
+            kapasitas,
+            hargaSewa));
 
-    std::cout << "\nData berhasil ditambahkan.\n";
+    cout << "\nData berhasil ditambahkan.\n";
 }
 
-int main() {
+int main()
+{
+
     isiDataAwal();
 
-    std::cout << "==============================================================\n";
-    std::cout << "             SISTEM DATA MOBIL RENTAL - C++\n";
-    std::cout << "==============================================================\n";
+    cout << "==============================================================\n";
+    cout << "             SISTEM DATA MOBIL RENTAL - C++\n";
+    cout << "==============================================================\n";
 
-    std::cout << "\n5 DATA AWAL:\n";
+    cout << "\n5 DATA AWAL:\n";
     tampilkanTabel();
 
     bool tambahLagi = true;
 
-    while (tambahLagi) {
+    while (tambahLagi)
+    {
+
         tambahData();
 
-        std::cout << "\nDATA SETELAH PENAMBAHAN:\n";
+        cout << "\nDATA SETELAH PENAMBAHAN:\n";
         tampilkanTabel();
 
-        tambahLagi = bacaYaTidak("\nApakah ingin menambahkan data lagi? (y/n): ");
+        tambahLagi = bacaYaTidak(
+            "\nApakah ingin menambahkan data lagi? (y/n): ");
     }
 
-    std::cout << "\nProgram selesai. Terima kasih.\n";
+    cout << "\nProgram selesai. Terima kasih.\n";
 
     return 0;
 }
