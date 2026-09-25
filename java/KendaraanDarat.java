@@ -1,33 +1,45 @@
 public class KendaraanDarat extends Kendaraan {
-    // Atribut khusus kendaraan darat
-    protected int jumlahRoda;
-    protected String jenisBahanBakar;
-    protected String transmisi;
+  private int jumlahRoda;
+  private String jenisBahanBakar;
+  private String transmisi;
 
-    public KendaraanDarat(
-            String idKendaraan,
-            String merk,
-            int tahunProduksi,
-            double harga,
-            int jumlahRoda,
-            String jenisBahanBakar,
-            String transmisi) {
+  public KendaraanDarat(
+      String idKendaraan,
+      String merk,
+      int tahunProduksi,
+      double harga,
+      int jumlahRoda,
+      String jenisBahanBakar,
+      String transmisi) {
 
-        super(idKendaraan, merk, tahunProduksi, harga);
-        this.jumlahRoda = jumlahRoda;
-        this.jenisBahanBakar = jenisBahanBakar;
-        this.transmisi = transmisi;
-    }
+    super(idKendaraan, merk, tahunProduksi, harga);
 
-    public boolean cekKelayakanBerkendara() {
-        return jumlahRoda >= 4 && tahunProduksi >= 2000;
-    }
+    this.jumlahRoda = jumlahRoda;
+    this.jenisBahanBakar = jenisBahanBakar;
+    this.transmisi = transmisi;
+  }
 
-    @Override
-    public void tampilkanInfo() {
-        super.tampilkanInfo();
-        System.out.println("Jumlah Roda  : " + jumlahRoda);
-        System.out.println("Bahan Bakar  : " + jenisBahanBakar);
-        System.out.println("Transmisi    : " + transmisi);
-    }
+  public boolean cekKelayakanBerkendara() {
+    return jumlahRoda >= 4 && getTahunProduksi() >= 2000;
+  }
+
+  public void tampilkanInfo() {
+    super.tampilkanInfo();
+
+    System.out.println("Jumlah Roda  : " + jumlahRoda);
+    System.out.println("Bahan Bakar  : " + jenisBahanBakar);
+    System.out.println("Transmisi    : " + transmisi);
+  }
+
+  public int getJumlahRoda() {
+    return jumlahRoda;
+  }
+
+  public String getJenisBahanBakar() {
+    return jenisBahanBakar;
+  }
+
+  public String getTransmisi() {
+    return transmisi;
+  }
 }
